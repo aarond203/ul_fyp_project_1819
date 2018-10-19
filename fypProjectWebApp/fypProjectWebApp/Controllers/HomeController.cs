@@ -13,7 +13,21 @@ namespace fypProjectWebApp.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Transactions()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Topup()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Checkout()
         {
             ViewBag.Message = "Your application description page.";
 
