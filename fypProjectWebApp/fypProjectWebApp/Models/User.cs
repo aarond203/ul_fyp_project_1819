@@ -11,36 +11,16 @@ namespace fypProjectWebApp.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
-
+    
     public partial class User
     {
-        public int autoID { get; set; }
-
-        [DisplayName("First Name")]
-        [Required(ErrorMessage = "First name required")]
-        public string firstname { get; set; }
-
-        [DisplayName("Last Name")]
-        [Required(ErrorMessage = "Last name required")]
-        public string lastname { get; set; }
-
-        [DisplayName("Student ID")]
-        [Required(ErrorMessage = "Student ID required")]
-        public int idNumber { get; set; }
-
-        [DisplayName("Password")]
-        [Required(ErrorMessage = "Password is required")]
-        [DataType(DataType.Password)]
-        public string userPass { get; set; }
-
-        [DisplayName("Password")]
-        [DataType(DataType.Password)]
-        [Compare("userPass")]
-        public string confirmPass { get; set; }
-
+        public int userId { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string email_ID { get; set; }
+        public string user_pass { get; set; }
         public bool admin { get; set; }
+        public bool verify_email { get; set; }
+        public System.Guid activation_code { get; set; }
     }
 }
