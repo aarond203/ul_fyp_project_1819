@@ -1,0 +1,27 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "";
+}
+
+<h2>Email Successfully Verified</h2>
+
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+{
+    <div class="alert alert-success">
+        <strong>Congratulations!</strong>
+        <br /><br />
+        <p>
+            Your email has been successfully verified and you can now access your account. To do so,
+            please click here to <strong>@Html.ActionLink("Login", "Login", "User")</strong>.
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        <strong>Error</strong>
+        <br /><br />
+        @ViewBag.Message
+    </div>
+}

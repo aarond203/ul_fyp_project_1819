@@ -25,7 +25,7 @@ namespace fypProjectWebApp.Models
         [Display(Name = "UL Email")]
         [DataType(DataType.EmailAddress)]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Your UL email is required")]
-        public int email_ID { get; set; }
+        public string email_ID { get; set; }
 
         [Display(Name = "Password")]
         [DataType(DataType.Password)]

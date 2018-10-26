@@ -25,7 +25,18 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Transactions", "Transactions", "Home")</li>
                     <li>@Html.ActionLink("Topup", "Topup", "Home")</li>
-                    <li>@Html.ActionLink("Account", "Contact", "Home")</li>  
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                             Account
+                             <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                             <li>@Html.ActionLink("Edit Profile", "Add", "Storage")</li>
+                             <li>@Html.ActionLink("Logout", "View", "Storage")</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

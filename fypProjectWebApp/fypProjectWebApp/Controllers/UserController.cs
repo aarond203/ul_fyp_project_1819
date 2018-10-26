@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Net.Mail;
 using System.Net;
 using fypProjectWebApp.Models;
+using System.Web.Security;
 
 namespace fypProjectWebApp.Controllers
 {
@@ -71,15 +72,91 @@ namespace fypProjectWebApp.Controllers
             return View(user);
         }
 
-        // Verify email
-        
-        // Verify email link
+        // Email Verification
+        [HttpGet]
+        public ActionResult VerifyAccount(string id)
+        {
+            bool status = false;
+
+            using (TestDatabase db = new TestDatabase())
+            {
+                db.Configuration.ValidateOnSaveEnabled = false;
+
+                var v = db.Users.Where(a => a.activation_code == new Guid(id)).FirstOrDefault();
+
+                if (v != null)
+                {
+                    v.verify_email = true;
+                    db.SaveChanges();
+                    status = true;
+                }
+                else
+                {
+                    ViewBag.Message = "Invalid Request";
+                }
+            }
+            ViewBag.Status = status;
+            return View();
+        }
 
         // Login action
-        
-        // Login post action
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        // Login POST action
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(UserLogin login, string ReturnUrl)
+        {
+            string message = "";
+
+            using (TestDatabase db = new TestDatabase())
+            {
+                var v = db.Users.Where(a => a.email_ID == login.email_ID).FirstOrDefault();
+
+                if (v != null)
+                {
+                    if (string.Compare(Encrypt.Hash(login.user_pass), v.user_pass) == 0)
+                    {
+                        int timeout = login.remember_me ? 525600 : 1;
+                        var ticket = new FormsAuthenticationTicket(login.email_ID, login.remember_me, timeout);
+                        string encrypted = FormsAuthentication.Encrypt(ticket);
+                        var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
+
+                        cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                        cookie.HttpOnly = true;
+                        Response.Cookies.Add(cookie);
+
+                        if (Url.IsLocalUrl(ReturnUrl))
+                        {
+                            return Redirect(ReturnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                }
+                else
+                {
+                    message = "Invalid credentials provided";
+                }
+            }
+            ViewBag.Message = message;
+            return View();
+        }
 
         // Logout
+        [Authorize]
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "User");
+        }
 
         [NonAction]
         public bool DoesEmailExist(string email_ID)
@@ -101,7 +178,7 @@ namespace fypProjectWebApp.Controllers
             var to = new MailAddress(email_ID);
             var fromPass = "Kc@2U8IViL";
 
-            var subject = "ULiD = Email Verification";
+            var subject = "ULiD - Email Verification";
             string bodyMessage = 
                 "Thank you for setting up your ULiD account.<br/><br/>Before you can proceed, we still need to make sure it's" +
                 "you that has created the account. Please click on the link below to verify your email address:" +

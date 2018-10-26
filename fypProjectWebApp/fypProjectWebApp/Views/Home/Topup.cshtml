@@ -21,5 +21,44 @@
     <option>35</option>
     <option>40</option>
 </select>
+<br />
+<p>Select payment method</p>
+<div id="paypal-button"></div>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+  paypal.Button.render({
+    // Configure environment
+    env: 'sandbox',
+    client: {
+        sandbox: 'AdFJwfVVQ_3viwQOGKoricXIdbwSmaAvTGxsy-5xdo3vianbRdUPj0uc53OHeJ_BrWBzVU6OC6a8DfNC',
+        production: 'demo_production_client_id'
+    },
+    // Customize button (optional)
+    locale: 'en_US',
+    style: {
+        size: 'medium',
+        label: 'paypal',
+        color: 'silver',
+        shape: 'pill',
+    },
+    // Set up a payment
+    payment: function(data, actions) {
+        return actions.payment.create({
+            transactions: [{
+            amount: {
+                total: '0.01',
+                currency: 'USD'
+            }
+            }]
+        });
+    },
+    // Execute the payment
+    onAuthorize: function(data, actions) {
+        return actions.payment.execute().then(function() {
+            // Show a confirmation message to the buyer
+            window.alert('Thank you for your purchase!');
+        });
+        }
+  }, '#paypal-button');
 
-<p><a href="~/Views/Home/Checkout.cshtml" class="btn btn-primary btn-lg">Checkout</a></p>
+</script>
