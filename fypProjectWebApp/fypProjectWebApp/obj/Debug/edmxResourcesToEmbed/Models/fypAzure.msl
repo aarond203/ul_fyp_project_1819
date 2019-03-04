@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="fypDatabaseModelStoreContainer" CdmEntityContainer="fypDatabase">
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="fypDatabaseModel.Transaction">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="transactionID" ColumnName="transactionID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="transactionDate" ColumnName="transactionDate" />
+          <ScalarProperty Name="transactionLocation" ColumnName="transactionLocation" />
+          <ScalarProperty Name="transactionCredit" ColumnName="transactionCredit" />
+          <ScalarProperty Name="transationDebit" ColumnName="transationDebit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="fypDatabaseModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="emailID" ColumnName="emailID" />
+          <ScalarProperty Name="userPass" ColumnName="userPass" />
+          <ScalarProperty Name="systemAdmin" ColumnName="systemAdmin" />
+          <ScalarProperty Name="verifyEmail" ColumnName="verifyEmail" />
+          <ScalarProperty Name="activationCode" ColumnName="activationCode" />
+          <ScalarProperty Name="cardBalance" ColumnName="cardBalance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

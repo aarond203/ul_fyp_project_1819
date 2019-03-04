@@ -51,7 +51,7 @@ namespace fypProjectWebApp.Controllers
                 user.verifyEmail = false;
 
                 #region Save new user data to DB
-                using (fypDatabaseEntities db = new fypDatabaseEntities())
+                using (fypDatabase db = new fypDatabase())
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
@@ -78,7 +78,7 @@ namespace fypProjectWebApp.Controllers
         {
             bool status = false;
 
-            using (fypDatabaseEntities db = new fypDatabaseEntities())
+            using (fypDatabase db = new fypDatabase())
             {
                 db.Configuration.ValidateOnSaveEnabled = false;
 
@@ -113,7 +113,7 @@ namespace fypProjectWebApp.Controllers
         {
             string message = "";
 
-            using (fypDatabaseEntities db = new fypDatabaseEntities())
+            using (fypDatabase db = new fypDatabase())
             {
                 var v = db.Users.Where(a => a.emailID == login.email_ID).FirstOrDefault();
 
@@ -161,7 +161,7 @@ namespace fypProjectWebApp.Controllers
         [NonAction]
         public bool DoesEmailExist(string email_ID)
         {
-            using (fypDatabaseEntities db = new fypDatabaseEntities())
+            using (fypDatabase db = new fypDatabase())
             {
                 var v = db.Users.Where(a => a.emailID == email_ID).FirstOrDefault();
                 return v != null;
