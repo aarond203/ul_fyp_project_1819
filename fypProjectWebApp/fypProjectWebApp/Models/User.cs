@@ -14,13 +14,23 @@ namespace fypProjectWebApp.Models
     
     public partial class User
     {
-        public int userId { get; set; }
-        public string first_name { get; set; }
-        public string last_name { get; set; }
-        public string email_ID { get; set; }
-        public string user_pass { get; set; }
-        public bool admin { get; set; }
-        public bool verify_email { get; set; }
-        public System.Guid activation_code { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Transactions = new HashSet<Transaction>();
+        }
+    
+        public int userID { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string emailID { get; set; }
+        public string userPass { get; set; }
+        public Nullable<bool> systemAdmin { get; set; }
+        public bool verifyEmail { get; set; }
+        public Nullable<System.Guid> activationCode { get; set; }
+        public decimal cardBalance { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

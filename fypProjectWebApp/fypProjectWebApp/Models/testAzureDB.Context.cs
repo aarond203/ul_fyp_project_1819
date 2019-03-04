@@ -13,10 +13,10 @@ namespace fypProjectWebApp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TestDatabase : DbContext
+    public partial class fypDatabaseEntities : DbContext
     {
-        public TestDatabase()
-            : base("name=TestDatabase")
+        public fypDatabaseEntities()
+            : base("name=fypDatabaseEntities")
         {
         }
     
@@ -25,6 +25,7 @@ namespace fypProjectWebApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
 }

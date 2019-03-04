@@ -22,7 +22,7 @@ namespace fypProjectWebApp.Controllers
         // Registration POST action
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registration([Bind(Exclude = "verify_email, activation_code")] User user)
+        public ActionResult Registration([Bind(Exclude = "verifyEmail, activationCode")] User user)
         {
             bool status = false;
             string message = "";
@@ -31,7 +31,7 @@ namespace fypProjectWebApp.Controllers
             if (ModelState.IsValid)
             {
                 #region Email already exists
-                var doesExist = DoesEmailExist(user.email_ID);
+                var doesExist = DoesEmailExist(user.emailID);
                 if (doesExist)
                 {
                     ModelState.AddModelError("EmailExist", "Email already exists");
@@ -40,25 +40,25 @@ namespace fypProjectWebApp.Controllers
                 #endregion
 
                 #region  Generate code
-                user.activation_code = Guid.NewGuid();
+                user.activationCode = Guid.NewGuid();
                 #endregion
 
                 #region Password Hashing
-                user.user_pass = Encrypt.Hash(user.user_pass);
-                user.confirm_pass = Encrypt.Hash(user.confirm_pass);
+                user.userPass = Encrypt.Hash(user.userPass);
+                user.confirmPass = Encrypt.Hash(user.confirmPass);
                 #endregion
 
-                user.verify_email = false;
+                user.verifyEmail = false;
 
                 #region Save new user data to DB
-                using (TestDatabase db = new TestDatabase())
+                using (fypDatabaseEntities db = new fypDatabaseEntities())
                 {
                     db.Users.Add(user);
                     db.SaveChanges();
 
                     // Send verification email
-                    SendVerifyEmailLink(user.email_ID, user.activation_code.ToString());
-                    message = "Registration complete. A verification email has been sent to " + user.email_ID;
+                    SendVerifyEmailLink(user.emailID, user.activationCode.ToString());
+                    message = "Registration complete. A verification email has been sent to " + user.emailID;
                     status = true;
                 }
                 #endregion
@@ -78,15 +78,15 @@ namespace fypProjectWebApp.Controllers
         {
             bool status = false;
 
-            using (TestDatabase db = new TestDatabase())
+            using (fypDatabaseEntities db = new fypDatabaseEntities())
             {
                 db.Configuration.ValidateOnSaveEnabled = false;
 
-                var v = db.Users.Where(a => a.activation_code == new Guid(id)).FirstOrDefault();
+                var v = db.Users.Where(a => a.activationCode == new Guid(id)).FirstOrDefault();
 
                 if (v != null)
                 {
-                    v.verify_email = true;
+                    v.verifyEmail = true;
                     db.SaveChanges();
                     status = true;
                 }
@@ -113,13 +113,13 @@ namespace fypProjectWebApp.Controllers
         {
             string message = "";
 
-            using (TestDatabase db = new TestDatabase())
+            using (fypDatabaseEntities db = new fypDatabaseEntities())
             {
-                var v = db.Users.Where(a => a.email_ID == login.email_ID).FirstOrDefault();
+                var v = db.Users.Where(a => a.emailID == login.email_ID).FirstOrDefault();
 
                 if (v != null)
                 {
-                    if (string.Compare(Encrypt.Hash(login.user_pass), v.user_pass) == 0)
+                    if (string.Compare(Encrypt.Hash(login.user_pass), v.userPass) == 0)
                     {
                         int timeout = login.remember_me ? 525600 : 1;
                         var ticket = new FormsAuthenticationTicket(login.email_ID, login.remember_me, timeout);
@@ -161,24 +161,24 @@ namespace fypProjectWebApp.Controllers
         [NonAction]
         public bool DoesEmailExist(string email_ID)
         {
-            using (TestDatabase db = new TestDatabase())
+            using (fypDatabaseEntities db = new fypDatabaseEntities())
             {
-                var v = db.Users.Where(a => a.email_ID == email_ID).FirstOrDefault();
+                var v = db.Users.Where(a => a.emailID == email_ID).FirstOrDefault();
                 return v != null;
             }
         }
 
         [NonAction]
-        public void SendVerifyEmailLink(string email_ID, string activation_code)
+        public void SendVerifyEmailLink(string emailID, string activationCode)
         {
-            var vUrl = "/User/VerifyAccount/" + activation_code;
+            var vUrl = "/User/VerifyAccount/" + activationCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, vUrl);
 
-            var from = new MailAddress("aarond203test@gmail.com", "ULID Test");
-            var to = new MailAddress(email_ID);
+            var from = new MailAddress("aarond203test@gmail.com", "UL Pay Test");
+            var to = new MailAddress(emailID);
             var fromPass = "Kc@2U8IViL";
 
-            var subject = "ULiD - Email Verification";
+            var subject = "UL Pay - Email Verification";
             string bodyMessage = 
                 "Thank you for setting up your ULiD account.<br/><br/>Before you can proceed, we still need to make sure it's" +
                 "you that has created the account. Please click on the link below to verify your email address:" +

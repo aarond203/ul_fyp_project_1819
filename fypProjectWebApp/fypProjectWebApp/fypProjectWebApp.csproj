@@ -169,23 +169,26 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Extended\User.cs" />
-    <Compile Include="Models\Model1.Context.cs">
+    <Compile Include="Models\testAzureDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+      <DependentUpon>testAzureDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.cs">
+    <Compile Include="Models\testAzureDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>testAzureDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TestDatabase.Designer.cs">
+    <Compile Include="Models\testAzureDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TestDatabase.edmx</DependentUpon>
+      <DependentUpon>testAzureDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Transaction.cs">
+      <DependentUpon>testAzureDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>testAzureDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -203,27 +206,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model1.Context.tt">
+    <Content Include="Models\testAzureDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TestDatabase.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>testAzureDB.edmx</DependentUpon>
+      <LastGenOutput>testAzureDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1.tt">
+    <Content Include="Models\testAzureDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TestDatabase.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>testAzureDB.edmx</DependentUpon>
+      <LastGenOutput>testAzureDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\TestDatabase.edmx">
+    <EntityDeploy Include="Models\testAzureDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TestDatabase.Designer.cs</LastGenOutput>
+      <LastGenOutput>testAzureDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\TestDatabase.edmx.diagram">
-      <DependentUpon>TestDatabase.edmx</DependentUpon>
+    <Content Include="Models\testAzureDB.edmx.diagram">
+      <DependentUpon>testAzureDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

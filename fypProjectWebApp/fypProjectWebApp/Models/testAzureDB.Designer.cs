@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Aaron Dunne\Documents\GitHub\ul_fyp_project_1819\fypProjectWebApp\fypProjectWebApp\Models\TestDatabase.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Aaron Dunne\Documents\GitHub\ul_fyp_project_1819\fypProjectWebApp\fypProjectWebApp\Models\testAzureDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
