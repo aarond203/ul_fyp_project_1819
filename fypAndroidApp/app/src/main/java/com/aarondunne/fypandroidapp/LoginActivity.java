@@ -1,22 +1,21 @@
 package com.aarondunne.fypandroidapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.aarondunne.fypandroidapp.R;
-import com.aarondunne.fypandroidapp.coordinator.ILoginCoordinator;
-import com.aarondunne.fypandroidapp.coordinator.LoginCoordinator;
-import com.aarondunne.fypandroidapp.view.ILoginView;
+import com.aarondunne.fypandroidapp.controller.ILoginController;
+import com.aarondunne.fypandroidapp.controller.LoginController;
+import com.aarondunne.fypandroidapp.view.IView;
 
 import es.dmoral.toasty.Toasty;
 
-public class LoginActivity extends AppCompatActivity implements ILoginView {
+public class LoginActivity extends AppCompatActivity implements IView {
 
-    ILoginCoordinator loginCoordinator;
+    ILoginController loginController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +27,22 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         final Button loginButton = findViewById(R.id.loginButton);
         final Button registerButton = findViewById(R.id.registerButton);
 
-        loginCoordinator = new LoginCoordinator(this);
+        loginController = new LoginController(this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginCoordinator.onLogin(emailID.getText().toString(), userPass.getText().toString());
+                loginController.onLogin(
+                        emailID.getText().toString(),
+                        userPass.getText().toString());
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -43,7 +52,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         Toasty.error(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void onLoginSuccess(String msg) {
         Toasty.success(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRegisterSuccess(String msg) {
+
+    }
+
+    @Override
+    public void onRegisterError(String msg) {
+
     }
 }
