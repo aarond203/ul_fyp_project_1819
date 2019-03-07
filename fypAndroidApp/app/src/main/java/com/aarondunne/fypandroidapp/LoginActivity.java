@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Checkable;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.aarondunne.fypandroidapp.controller.ILoginController;
 import com.aarondunne.fypandroidapp.controller.LoginController;
+import com.aarondunne.fypandroidapp.sql.DBHelper;
 import com.aarondunne.fypandroidapp.view.IView;
 
 import es.dmoral.toasty.Toasty;
@@ -32,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements IView {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DBHelper.CheckLogin checkLogin = new DBHelper.CheckLogin();
+                checkLogin.execute("");
                 loginController.onLogin(
                         emailID.getText().toString(),
                         userPass.getText().toString());
