@@ -34,8 +34,10 @@ public class LoginActivity extends AppCompatActivity implements IView {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DBHelper.CheckLogin checkLogin = new DBHelper.CheckLogin();
-                checkLogin.execute("");
+                //DBHelper.CheckLogin checkLogin = new DBHelper.CheckLogin();
+                //checkLogin.execute("");
+                Intent home = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(home);
                 loginController.onLogin(
                         emailID.getText().toString(),
                         userPass.getText().toString());

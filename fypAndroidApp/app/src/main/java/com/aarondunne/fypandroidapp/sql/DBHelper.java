@@ -31,9 +31,9 @@ public class DBHelper {
         @Override
         protected void onPostExecute(String s) {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(LoginActivity.this, s, Toast.LENGTH_LONG).show();
+            //Toast.makeText(LoginActivity.this, s, Toast.LENGTH_LONG).show();
             if (success) {
-                Toasty.success()
+                //Toasty.success();
             }
         }
 
